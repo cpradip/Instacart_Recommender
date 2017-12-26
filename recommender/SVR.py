@@ -24,9 +24,11 @@ def RecommendPredictions():
 	testDataset = testDF.as_matrix(columns=[0,1,3,4])
 	testActualOutput = testDF.as_matrix(columns=[2])
 	testActualOutput[np.isnan(testActualOutput)] = 1.0
+	print testActualOutput.shape
 
 	print "Start Predictions ..."
 	testPredictedOutput = algo.predict(testDataset)
+	print testActualOutput.shape
 	print testPredictedOutput.shape
 
 	result = np.append(testActualOutput, testPredictedOutput, axis = 1)
