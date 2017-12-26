@@ -10,10 +10,10 @@ def Evaluate(filename):
 	uniqueUsersDF =  pan.read_csv("data_source/uniqueUsers.csv")
 
 	print "Loading Prediction Results ..."
-	predictionResultsDF = pan.read_csv("data_source/" + filename)
+	predictionResultsDF = pan.read_csv("data_source/" + filename, header=None)
 
 	rankValue = 0
-	totalPredictedVal = predictionResultsDF["r_ui"].sum(axis=0)
+	totalPredictedVal = predictionResultsDF[2].sum(axis=0)
 
 	print "Calculating rank ..."
 
@@ -21,22 +21,23 @@ def Evaluate(filename):
 		userId = row["user_id"]
 
 		## Get prediction results for each user
-		userResultDF = predictionResultsDF.loc[predictionResultsDF["uid"] == row["user_id"]]
+		userResultDF = predictionResultsDF.loc[predictionResultsDF[1] == row["user_id"]]
 		resultCount = len(userResultDF.index)
 
 		## Calculate PR for each user
 		for index1, predictionRow in userResultDF.iterrows():
-			predictionVal = predictionRow["est"]
-			actualVal = predictionRow["r_ui"]
+			predictionVal = predictionRow[3]
+			actualVal = predictionRow[2]
 
-			greaterVal = len(userResultDF.loc[userResultDF["est"] > predictionVal].index)
-			equalVal = len(userResultDF.loc[userResultDF["est"] == predictionVal].index)
+			greaterVal = len(userResultDF.loc[userResultDF[3] > predictionVal].index)
+			equalVal = len(userResultDF.loc[userResultDF[3] == predictionVal].index)
 
 			## Percentile for each user product
 			percentile = (greaterVal + 0.5*equalVal)*100/resultCount
 
 			## Percentile Rank from each user product added to Rank
-			rankValue = rankValue + percentile * actualVal/totalPredictedVal
+			rankValue = rankValue + percentile * actualVal
 
-	print rankValue
+	rank = rankValue / totalPredictedVal
+	print rank
 
