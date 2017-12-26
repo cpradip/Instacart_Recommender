@@ -9,12 +9,12 @@ def RecommendPredictions():
 	trainDataset = trainDF.as_matrix(columns=[0,1,3,4])
 	trainOutput = trainDF.as_matrix(columns=[2])
 
-	for x in np.nditer(trainOutput):
-		if not isinstance(x, float):
-			print "-------"
-			print x 
-			print "Not a float"
+	print trainDataset.dtype
+	print "------------------------------"
+	print trainOutput.dtype
 
+
+def test():
 	print "Train Dataset ..."
 	algo = SVR(max_iter = 10)
 	algo.fit(trainDataset, trainOutput)
