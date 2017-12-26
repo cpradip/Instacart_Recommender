@@ -29,10 +29,10 @@ def RecommendUsingRegression():
 	#DataParser.ParseDataWithProductsInfo("test_count_norm_1_10.csv")
 
 	## Train and then recommend using SVR
-	SVR.RecommendPredictions()
+	#SVR.RecommendPredictions()
 
 	## Evaluate the predicted results for test file
-	#Evaluate("predictions_results_svr.csv")
+	Evaluate("predictions_results_svr.csv")
 
 
 
