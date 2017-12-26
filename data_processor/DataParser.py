@@ -19,10 +19,10 @@ def ParseDataIntoTrainTest():
 	testDF = pan.DataFrame(columns = ['user_id', 'product_id','counts'])
 
 	try:
-    	os.remove('data_source/train_count_norm_1_10.csv')
-    	os.remove('data_source/test_count_norm_1_10.csv')
+		os.remove('data_source/train_count_norm_1_10.csv')
+		os.remove('data_source/test_count_norm_1_10.csv')
 	except OSError:
-    	pass
+		pass
 
 	## CSV files for storing training and testing set
 	train_csv = open('data_source/train_count_norm_1_10.csv', 'a')
@@ -98,9 +98,9 @@ def CreateTestFileForRandomProducts():
 	userList = uniqueUserProdutsDF["user_id"].unique()
 
 	try:
-    	os.remove('data_source/test_results_random.csv')
+		os.remove('data_source/test_results_random.csv')
 	except OSError:
-    	pass
+		pass
 
 	resultFile = open("data_source/test_results_random.csv","a")
 	csv_writer = csv.writer(resultFile)
@@ -136,9 +136,9 @@ def ParseDataAsSparseMatrix(filename):
 	counter = 0
 
 	try:
-    	os.remove('data_source/sparse' + filename)
+		os.remove('data_source/sparse' + filename)
 	except OSError:
-    	pass
+		pass
 
 	sparseData = open('data_source/sparse' + filename, 'a')
 

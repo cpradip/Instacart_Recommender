@@ -35,9 +35,9 @@ def RecommendPredictions():
 	predictions = algo.test(testset)
 
 	try:
-    	os.remove("data_source/predictions_results_svdpp.csv")
+		os.remove("data_source/predictions_results_svdpp.csv")
 	except OSError:
-    	pass
+		pass
 
 	print "Saving Prediction results in File"
 	resultFile = open("data_source/predictions_results_svdpp.csv","a")

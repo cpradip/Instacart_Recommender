@@ -40,9 +40,9 @@ def RecommendPredictions():
 	testPredictedOutput = np.reshape(testPredictedOutput, (testPredictedOutput.shape[0],1))
 
 	try:
-    	os.remove("data_source/predictions_results_svr.csv")
+		os.remove("data_source/predictions_results_svr.csv")
 	except OSError:
-    	pass
+		pass
 
     print "Saving Prediction results in File"
 	result = np.append(testActualOutput, testPredictedOutput, axis = 1)
