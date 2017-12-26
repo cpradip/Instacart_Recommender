@@ -136,3 +136,22 @@ def ParseDataAsSparseMatrix(filename):
 			counter = 0
 
 	sparseData.close()
+
+###-----------------------------------------------------------------###
+	# Create data with additional products information 
+	# (aisle_id, department_id)
+###-----------------------------------------------------------------###
+def ParseDataWithProductsInfo(filename):
+	print "load user products"
+	userProdutsDF = pan.read_csv(("data_source/" + filename))
+	print userProductsDF.dtypes
+
+	print "load products"
+	productsDF = pan.read_csv("data_source/products.csv")
+
+	print "join user products with product information"
+	userProductsWithInfoDF = userProdutsDF.join(productsDF.set_index('product_id'), on='1')[['user_id','product_id','counts', 'aisle_id','department_id']]
+
+	#userProductsWithInfoDF.to_csv(("data_source/userproducts_" + filename),header = False, index = False)
+
+
