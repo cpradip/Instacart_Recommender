@@ -53,8 +53,11 @@ def RecommendPredictions():
 	#result = np.append(testDataset[:,0:2], result, axis =1)
 	#np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',', fmt='%1.3f')
 
-	for index, x in testPredictedOutput:
-		resultTuple = (testDataset[index, 0], testDataset[index, 1], testActualOutput[index], x)
+	index = 0
+
+	for x in np.nditer(testPredictedOutput):
+		predictionTuple = (testDataset[index, 0], testDataset[index, 1], testActualOutput[index], x)
 		csv_writer.writerow(predictionTuple)
+		index = index + 1
 	
 	resultFile.close()
