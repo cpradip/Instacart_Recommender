@@ -9,18 +9,11 @@ def RecommendPredictions():
 	trainDataset = trainDF.as_matrix(columns=[0,1,3,4])
 	trainOutput = trainDF.as_matrix(columns=[2])
 
-	print trainDataset.shape
-	print "------------------------------"
-	print trainOutput.shape
-
 	trainOutput = np.reshape(trainOutput,(trainOutput.shape[0],))
 	print trainOutput.shape
 
 	trainOutput[np.isnan(trainOutput)] = 1.0
-	nanOutput = trainOutput[np.isnan(trainOutput)]
-	print nanOutput.shape
 
-def test():
 	print "Train Dataset ..."
 	algo = SVR(max_iter = 10)
 	algo.fit(trainDataset, trainOutput)
