@@ -148,9 +148,10 @@ def ParseDataWithProductsInfo(filename):
 
 	print "load products"
 	productsDF = pan.read_csv("data_source/products.csv")
+	print productsDF.dtypes
 
 	print "join user products with product information"
-	userProductsWithInfoDF = userProductsDF.join(productsDF.set_index('product_id'), on=1)[[0,'product_id',2, 'aisle_id','department_id']]
+	userProductsWithInfoDF = userProductsDF.join(productsDF.set_index('product_id'), on=1)[[0,1,2, 'aisle_id','department_id']]
 
 	#userProductsWithInfoDF.to_csv(("data_source/userproducts_" + filename),header = False, index = False)
 
