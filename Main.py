@@ -19,6 +19,8 @@ def RecommendUsingMatrixFactorization():
 def RecommendUsingRegression():
 	ParseDataWithProductsInfo("train_count_norm_1_10.csv")
 
+	ParseDataWithProductsInfo("test_count_norm_1_10.csv")
+
 ###-----------------------------------------------------------------###
 	# Main file to start the recommendation procedure.
 ###-----------------------------------------------------------------###
