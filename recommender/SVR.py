@@ -43,8 +43,8 @@ def RecommendPredictions():
 		os.remove("data_source/predictions_results_svr.csv")
 	except OSError:
 		pass
-
-    print "Saving Prediction results in File"
+	
+	print "Saving Prediction results in File"
 	result = np.append(testActualOutput, testPredictedOutput, axis = 1)
 	result = np.append(testDataset[:,0:2], result, axis =1)
 	np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',', fmt='%1.3f')
