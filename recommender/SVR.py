@@ -9,6 +9,9 @@ def RecommendPredictions():
 	trainDataset = trainDF.as_matrix(columns=[0,1,3,4])
 	trainOutput = trainDF.as_matrix(columns=[2])
 
+	trainOutput = np.reshape(trainOutput,(trainOutput.shape[0],))
+	print trainOutput.shape
+
 	trainOutput[np.isnan(trainOutput)] = 10.0
 
 	print "Train Dataset ..."
@@ -25,6 +28,7 @@ def RecommendPredictions():
 
 	print "Start Predictions ..."
 	testPredictedOutput = algo.predict(testDataset)
+	testPredictedOutput = np.reshape(testPredictedOutput, (testPredictedOutput.shape[0],1))
 	print testActualOutput.shape
 	print testPredictedOutput.shape
 
