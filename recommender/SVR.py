@@ -33,12 +33,12 @@ def RecommendPredictions():
 	testDataset = testDF.as_matrix(columns=[0,1,3,4])
 	testActualOutput = testDF.as_matrix(columns=[2])
 	testActualOutput[np.isnan(testActualOutput)] = 1.0
+	testActualOutput = np.reshape(testActualOutput,(testActualOutput.shape[0],))
 
 	#algo = joblib.load('data_source/svr_trained_model.pkl') 
 
 	print "Start Predictions ..."
 	testPredictedOutput = algo.predict(testDataset)
-	testPredictedOutput = np.reshape(testPredictedOutput, (testPredictedOutput.shape[0],1))
 
 	try:
 		os.remove("data_source/predictions_results_svr.csv")
