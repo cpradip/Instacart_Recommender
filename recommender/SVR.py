@@ -9,10 +9,13 @@ def RecommendPredictions():
 	trainDataset = trainDF.as_matrix(columns=[0,1,3,4])
 	trainOutput = trainDF.as_matrix(columns=[2])
 
-	print trainDataset.dtype
+	print trainDataset.shape
 	print "------------------------------"
-	print trainOutput.dtype
+	print trainOutput.shape
 
+	trainOutput = np.reshape(trainOutput,(trainOutput.shape[0],))
+	print trainOutput.shape
+	
 
 def test():
 	print "Train Dataset ..."
