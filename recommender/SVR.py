@@ -16,11 +16,15 @@ def RecommendPredictions():
 	trainOutput = np.reshape(trainOutput,(trainOutput.shape[0],))
 	print trainOutput.shape
 
+	print np.isnan(trainOutput).any()
+	print np.isnan(trainDataset).any()
+
+def test():
 	print "Train Dataset ..."
 	algo = SVR(max_iter = 10)
 	algo.fit(trainDataset, trainOutput)
 
-def test():
+
 	print "Load Testing Data ..."
 	testDF = pan.read_csv("data_source/userproducts_test_count_norm_1_10.csv",header=None, dtype={2:np.float16})
 	testDataset = testDF.as_matrix(columns=[0,1,3,4])
