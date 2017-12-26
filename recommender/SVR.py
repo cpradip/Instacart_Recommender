@@ -14,7 +14,6 @@ def RecommendPredictions():
 			print "-------"
 			print x 
 			print "Not a float"
-			break
 
 	print "Train Dataset ..."
 	algo = SVR(max_iter = 10)
