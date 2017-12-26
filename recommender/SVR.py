@@ -21,7 +21,7 @@ def RecommendPredictions():
 	trainOutput[np.isnan(trainOutput)] = 10.0
 
 	print "Train Dataset ..."
-	algo = SVR(max_iter = 100)
+	algo = SVR(max_iter = 10000)
 	algo.fit(trainDataset, trainOutput)
 
 	joblib.dump(algo, 'data_source/svr_trained_model.pkl')
