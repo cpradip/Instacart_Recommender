@@ -10,7 +10,7 @@ def RecommendPredictions():
 	trainOutput = trainDF.as_matrix(columns=[2])
 
 	for x in np.nditer(trainOutput):
-		if !isinstance(x, float):
+		if ~isinstance(x, float):
 			print x
 			break
 
