@@ -16,8 +16,10 @@ def RecommendPredictions():
 	trainOutput = np.reshape(trainOutput,(trainOutput.shape[0],))
 	print trainOutput.shape
 
-	print np.isnan(trainOutput).any()
-	print np.isnan(trainDataset).any()
+	nanOutput = trainOutput[np.isnan(trainOutput)]
+	print nanOutput.shape
+	for n in nanOutput:
+		print n
 
 def test():
 	print "Train Dataset ..."
