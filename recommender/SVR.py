@@ -33,4 +33,4 @@ def RecommendPredictions():
 	print testPredictedOutput.shape
 
 	result = np.append(testActualOutput, testPredictedOutput, axis = 1)
-	np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',')
+	np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',', fmt='%1.3f')
