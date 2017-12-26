@@ -1,5 +1,5 @@
 from data_processor.DataParser import ParseDataIntoTrainTest, CreateTestFileForRandomProducts, ParseDataWithProductsInfo
-from recommender.SVDpp import RecommendPredictions
+from recommender import SVDpp, SVR
 from evaluation.MeanPercentileRank import Evaluate
 
 def RecommendUsingMatrixFactorization():
@@ -17,9 +17,13 @@ def RecommendUsingMatrixFactorization():
 
 
 def RecommendUsingRegression():
-	ParseDataWithProductsInfo("train_count_norm_1_10.csv")
+	#ParseDataWithProductsInfo("train_count_norm_1_10.csv")
 
-	ParseDataWithProductsInfo("test_count_norm_1_10.csv")
+	#ParseDataWithProductsInfo("test_count_norm_1_10.csv")
+
+	SVR.RecommendPredictions()
+
+
 
 ###-----------------------------------------------------------------###
 	# Main file to start the recommendation procedure.
