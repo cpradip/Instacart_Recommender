@@ -2,6 +2,7 @@ import pandas as pan
 import numpy as np
 import random
 import math
+import os
 
 
 ###----------------------------------------------------------------###
@@ -9,30 +10,19 @@ import math
 	# using Orders and Order_Products for eval_set = 'prior'
 ###----------------------------------------------------------------###
 def ParseDataIntoTrainTest():
-	print "Loading Orders ...."
-	orderDF = pan.read_csv('data_source/orders.csv')
-	
-	print "Filtering with Order Priors ...."
-	priorOrderDF = orderDF.loc[orderDF['eval_set'] == 'prior'][['order_id','user_id']]
-	priorOrderDF.to_csv("data_source/priorOrders.csv")
-	
-	print "Loading Order Products ...."
-	orderProductsDF = pan.read_csv('data_source/order_products__prior.csv')
-
-	print "Joining Users with Products ...."
-	userProductsDF = priorOrderDF.join(orderProductsDF.set_index('order_id'), on='order_id')[['user_id','product_id']]
-
-	print "Combining Product count with Users ...."
-	uniqueUserProdutsDF = userProductsDF.groupby(['user_id','product_id']).size().reset_index(name='counts')
-	uniqueUserProdutsDF.to_csv("data_source/uniqueUserProduts.csv")
-
-	print "Selecting Unique Users  ...."
-	uniqueUserDF = uniqueUserProdutsDF.groupby(['user_id']).size().reset_index(name='counts')
-	uniqueUserDF.to_csv("data_source/uniqueUsers.csv")
+	print "Loading data from files ....."
+	uniqueUserDF = pan.read_csv("data_source/uniqueUsers.csv")
+	uniqueUserProdutsDF = pan.read_csv("data_source/uniqueUserProduts.csv")
 
 	print "Division of Data Started ...."
 	trainDF = pan.DataFrame(columns = ['user_id', 'product_id','counts'])
 	testDF = pan.DataFrame(columns = ['user_id', 'product_id','counts'])
+
+	try:
+    	os.remove('data_source/train_count_norm_1_10.csv')
+    	os.remove('data_source/test_count_norm_1_10.csv')
+	except OSError:
+    	pass
 
 	## CSV files for storing training and testing set
 	train_csv = open('data_source/train_count_norm_1_10.csv', 'a')
@@ -73,6 +63,30 @@ def ParseDataIntoTrainTest():
 	train_csv.close()
 	test_csv.close()
 
+###----------------------------------------------------------------###
+	# Create intermediate data for usage by different processes
+###----------------------------------------------------------------###
+def ParseDataForIntermediateInfo():
+	print "Loading Orders ...."
+	orderDF = pan.read_csv('data_source/orders.csv')
+	
+	print "Filtering with Order Priors ...."
+	priorOrderDF = orderDF.loc[orderDF['eval_set'] == 'prior'][['order_id','user_id']]
+	priorOrderDF.to_csv("data_source/priorOrders.csv", index=False)
+	
+	print "Loading Order Products ...."
+	orderProductsDF = pan.read_csv('data_source/order_products__prior.csv')
+
+	print "Joining Users with Products ...."
+	userProductsDF = priorOrderDF.join(orderProductsDF.set_index('order_id'), on='order_id')[['user_id','product_id']]
+
+	print "Combining Product count with Users ...."
+	uniqueUserProdutsDF = userProductsDF.groupby(['user_id','product_id']).size().reset_index(name='counts')
+	uniqueUserProdutsDF.to_csv("data_source/uniqueUserProduts.csv", index=False)
+
+	print "Selecting Unique Users  ...."
+	uniqueUserDF = uniqueUserProdutsDF.groupby(['user_id']).size().reset_index(name='counts')
+	uniqueUserDF.to_csv("data_source/uniqueUsers.csv", index=False)
 
 ###-----------------------------------------------------------------###
 	# Creates test file for all users with 1000 random product_id 
@@ -83,9 +97,14 @@ def CreateTestFileForRandomProducts():
 	uniqueUserProdutsDF = pan.read_csv("data_source/uniqueUserProduts.csv")
 	userList = uniqueUserProdutsDF["user_id"].unique()
 
+	try:
+    	os.remove('data_source/test_results_random.csv')
+	except OSError:
+    	pass
+
 	resultFile = open("data_source/test_results_random.csv","a")
 	csv_writer = csv.writer(resultFile)
-	csv_writer.writerow(["user_id","product_id","counts"])
+	#csv_writer.writerow(["user_id","product_id","counts"])
 
 	for user in userList:
 		## Gets products for a user
@@ -115,6 +134,12 @@ def ParseDataAsSparseMatrix(filename):
 	userDF = pan.read_csv("uniqueUsers.csv")
 
 	counter = 0
+
+	try:
+    	os.remove('data_source/sparse' + filename)
+	except OSError:
+    	pass
+
 	sparseData = open('data_source/sparse' + filename, 'a')
 
 	for index, row in userDF.iterrows():
@@ -142,6 +167,7 @@ def ParseDataAsSparseMatrix(filename):
 	# (aisle_id, department_id)
 ###-----------------------------------------------------------------###
 def ParseDataWithProductsInfo(filename):
+	print filename
 	print "load user products"
 	userProductsDF = pan.read_csv(("data_source/" + filename), header=None)
 
