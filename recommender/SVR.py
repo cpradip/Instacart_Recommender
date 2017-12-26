@@ -15,7 +15,7 @@ def RecommendPredictions():
 	trainOutput[np.isnan(trainOutput)] = 10.0
 
 	print "Train Dataset ..."
-	algo = SVR(max_iter = 10)
+	algo = SVR()
 	algo.fit(trainDataset, trainOutput)
 
 
