@@ -1,6 +1,7 @@
 import pandas as pan
 import numpy as np
 import os
+import csv
 from sklearn.svm import SVR
 from sklearn.externals import joblib
 
@@ -21,7 +22,7 @@ def RecommendPredictions():
 	trainOutput[np.isnan(trainOutput)] = 10.0
 
 	print "Train Dataset ..."
-	algo = SVR(max_iter = 10000)
+	algo = SVR(max_iter = 10)
 	algo.fit(trainDataset, trainOutput)
 
 	joblib.dump(algo, 'data_source/svr_trained_model.pkl')
@@ -43,8 +44,17 @@ def RecommendPredictions():
 		os.remove("data_source/predictions_results_svr.csv")
 	except OSError:
 		pass
-	
+
 	print "Saving Prediction results in File"
-	result = np.append(testActualOutput, testPredictedOutput, axis = 1)
-	result = np.append(testDataset[:,0:2], result, axis =1)
-	np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',', fmt='%1.3f')
+	resultFile = open("data_source/predictions_results_svr.csv","a")
+	csv_writer = csv.writer(resultFile)
+	
+	#result = np.append(testActualOutput, testPredictedOutput, axis = 1)
+	#result = np.append(testDataset[:,0:2], result, axis =1)
+	#np.savetxt("data_source/predictions_results_svr.csv", result, delimiter=',', fmt='%1.3f')
+
+	for index, x in testPredictedOutput:
+		resultTuple = (testDataset[index, 0], testDataset[index, 1], testActualOutput[index], x)
+		csv_writer.writerow(predictionTuple)
+	
+	resultFile.close()
