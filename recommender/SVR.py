@@ -10,7 +10,7 @@ def RecommendPredictions():
 	trainOutput = trainDF.as_matrix(columns=[2])
 
 	for x in np.nditer(trainOutput):
-		if ~isinstance(x, float):
+		if not isinstance(x, float):
 			print "-------"
 			print x 
 			print "Not a float"
