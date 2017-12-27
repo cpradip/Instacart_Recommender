@@ -1,13 +1,15 @@
 ##-------------------------- Requirements -----------------------##
+
 Instacart recommender: Python based recommendation system
 
 Python Libraries used:
 ------------------------------------------------------------------
-Numpy
-Pandas
-Scikit
-Sklearn
-Surprise
+
+Numpy,
+Pandas,
+Scikit,
+Sklearn,
+Surprise,
 
 Dataset:
 ------------------------------------------------------------------
@@ -17,8 +19,10 @@ Dataset:
    files inside the data_source folder
 
 ##-------------------------- Main.py -----------------------##
+
 Main file:
-python Main.py
+
+"python Main.py"
 runs the main file
 
 1. Intial step: It runs the data parser function (ParseDataForProcessing)
