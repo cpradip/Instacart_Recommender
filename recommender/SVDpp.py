@@ -1,4 +1,5 @@
 import pandas as pan
+import numpy as np
 import csv
 import os
 from surprise import Dataset, SVDpp, accuracy, Reader
