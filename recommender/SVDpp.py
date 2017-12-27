@@ -22,7 +22,7 @@ def RecommendPredictions():
 	trainset = dataTrain.build_full_trainset()
 	
 	print "Initiate Training ....."
-	algo = SVDpp(n_epochs = 10,lr_all = 0.01, reg_all=0.02, verbose=True)
+	algo = SVDpp(n_epochs = 1,lr_all = 0.01, reg_all=0.02, verbose=True)
 	algo.train(trainset)
 
 	## Predictions for test set with ground truth present
