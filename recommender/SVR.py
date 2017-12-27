@@ -32,7 +32,7 @@ def RecommendPredictions():
 	
 	testDataset = testDF.as_matrix(columns=[0,1,3,4])
 	testActualOutput = testDF.as_matrix(columns=[2])
-	testActualOutput[np.isnan(testActualOutput)] = 1.0
+	testActualOutput[np.isnan(testActualOutput)] = 10.0
 	testActualOutput = np.reshape(testActualOutput,(testActualOutput.shape[0],))
 
 	#algo = joblib.load('data_source/svr_trained_model.pkl') 
@@ -61,3 +61,6 @@ def RecommendPredictions():
 		index = index + 1
 	
 	resultFile.close()
+
+	## Predictions for test set with random products present
+	##	LEFT

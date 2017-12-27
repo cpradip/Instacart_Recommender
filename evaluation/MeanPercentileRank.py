@@ -39,5 +39,6 @@ def Evaluate(filename):
 			rankValue = rankValue + percentile * actualVal
 
 	rank = rankValue / totalPredictedVal
+	print "MPR for the test set is:"
 	print rank
 
